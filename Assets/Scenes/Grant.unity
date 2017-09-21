@@ -239,5 +239,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapHalfWidth: 8
   mapHalfHeight: 8
-  blockTypes: []
+  mapCenter: {x: 0, y: 0}
+  blockTypes:
+  - {fileID: 4837144524081894, guid: d14137b3b2441d744bfc0109cf8f1328, type: 2}
+  - {fileID: 4164365572124514, guid: 18a31359a6d7f8744ac55ebca4066d28, type: 2}
+  - {fileID: 4627314713689506, guid: aac316d0bb56510419e8a35cb4bc91b5, type: 2}
   playerStartPos: []
+  tempPlayerCount: 2
+  blockDensity: 0.1
