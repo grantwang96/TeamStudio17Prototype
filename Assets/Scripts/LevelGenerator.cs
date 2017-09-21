@@ -63,8 +63,8 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-    bool isInMap(Vector2 loc)
-    {
-        if(loc.x < )
-    }
+   // bool isInMap(Vector2 loc)
+   // {
+		//if(loc.x < );
+    //}
 }
