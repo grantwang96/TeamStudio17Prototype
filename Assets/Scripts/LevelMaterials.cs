@@ -17,11 +17,13 @@ public class LevelMaterials : ScriptableObject {
     [Range(0.1f, 0.9f)]
     public float blockDensity;
     
-    [Range(8, 30)]
+    [Range(12, 30)]
     public int mapHalfWidth;
-    [Range(8, 30)]
+    [Range(12, 30)]
     public int mapHalfHeight;
-    
+
+    [Range(2, 8)]
+    public int roomCount;
 
     public Vector2 mapCenter;
 }

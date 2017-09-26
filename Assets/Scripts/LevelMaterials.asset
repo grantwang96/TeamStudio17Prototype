@@ -27,6 +27,7 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: -1, y: 0}
   blockDensity: 0.9
-  mapHalfWidth: 16
-  mapHalfHeight: 9
+  mapHalfWidth: 24
+  mapHalfHeight: 18
+  roomCount: 4
   mapCenter: {x: 0, y: 0}
