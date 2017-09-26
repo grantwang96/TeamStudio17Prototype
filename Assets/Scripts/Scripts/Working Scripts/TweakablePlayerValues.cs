@@ -15,5 +15,7 @@ public class TweakablePlayerValues : ScriptableObject {
 
 	public float rollSpeed;
 
-	public float quadDrag;
+	public float quadDragG;
+
+	public float quadDragA;
 }
