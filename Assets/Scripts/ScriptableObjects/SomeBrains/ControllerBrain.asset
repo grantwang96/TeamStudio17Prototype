@@ -9,5 +9,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Brains_KeyBoardBrain
-  m_EditorClassIdentifier: Assembly-CSharp::KeyboardBrain
+  m_Name: ControllerBrain
+  m_EditorClassIdentifier: Assembly-CSharp::ControllerBrain
