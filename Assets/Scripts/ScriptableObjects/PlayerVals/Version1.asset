@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44dc9d07cd76de4690f0f13c6607507, type: 3}
+  m_Name: Version1
+  m_EditorClassIdentifier: 
+  jumpForce: 55
+  groundAccel: 100
+  aerialAccel: 100
+  wallSlideSpeed: 0
+  rollSpeed: 0
+  quadDragG: 0.5
+  quadDragA: 0.5
