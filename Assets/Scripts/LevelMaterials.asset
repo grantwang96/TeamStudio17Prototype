@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Name: LevelMaterials
   m_EditorClassIdentifier: 
   solidTiles:
-  - {fileID: 4627314713689506, guid: aac316d0bb56510419e8a35cb4bc91b5, type: 2}
+  - {fileID: 4142619889406576, guid: dd8a052cc8166a84dbe61b604a05a809, type: 2}
   weakTiles:
   - {fileID: 4837144524081894, guid: d14137b3b2441d744bfc0109cf8f1328, type: 2}
+  - {fileID: 4627314713689506, guid: aac316d0bb56510419e8a35cb4bc91b5, type: 2}
   dangerTiles:
   - {fileID: 4164365572124514, guid: 18a31359a6d7f8744ac55ebca4066d28, type: 2}
   playerHighlight: {fileID: 4811446763413100, guid: 4f67d363901276f48b950b3990a5cbfb,
@@ -26,8 +27,9 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: -1}
   - {x: -1, y: 0}
-  blockDensity: 0.633
-  mapHalfWidth: 16
-  mapHalfHeight: 12
+  unitSize: 1
+  blockDensity: 0.95
+  mapHalfWidth: 18
+  mapHalfHeight: 11
   roomCount: 4
   mapCenter: {x: 0, y: 0}

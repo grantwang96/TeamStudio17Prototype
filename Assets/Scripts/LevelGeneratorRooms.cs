@@ -111,7 +111,7 @@ public class LevelGeneratorRooms : MonoBehaviour {
                 }
             }
         }
-        for (int i = -mapLimitX - 1; i <= mapLimitX; i++)
+        for (int i = -mapLimitX - 1; i <= mapLimitX + 1; i++)
         {
             Transform borderTileT = Instantiate(myLevelData.solidTiles[0], new Vector2(i, mapLimitY + 1), Quaternion.identity);
             Transform borderTileB = Instantiate(myLevelData.solidTiles[0], new Vector2(i, -mapLimitY - 1), Quaternion.identity);

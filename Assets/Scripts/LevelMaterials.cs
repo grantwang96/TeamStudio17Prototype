@@ -14,12 +14,15 @@ public class LevelMaterials : ScriptableObject {
 
     public Vector2[] dirs;
 
-    [Range(0.1f, 0.9f)]
+    [Range(1,5)]
+    public int unitSize;
+
+    [Range(0.4f, 0.95f)]
     public float blockDensity;
     
-    [Range(12, 30)]
+    [Range(8, 30)]
     public int mapHalfWidth;
-    [Range(12, 30)]
+    [Range(8, 30)]
     public int mapHalfHeight;
 
     [Range(2, 8)]

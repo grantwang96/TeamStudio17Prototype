@@ -21,19 +21,10 @@ public class LevelGenerator : MonoBehaviour {
             new Vector2(-myLevelData.mapHalfWidth, -myLevelData.mapHalfHeight),
             new Vector2(myLevelData.mapHalfWidth, -myLevelData.mapHalfHeight),
         };
-        shuffle(playerStartPos);
-        for(int i = 0; i < playerStartPos.Length; i++)
-        {
-            Debug.Log("Generating Path for Player " + i + "...");
-            generateCritPath(playerStartPos[i]); // Create a critical path from player's spawn to center
-        }
-        for(int i = 0; i < playerStartPos.Length; i++)
-        {
-            Transform newPlayHighlight = Instantiate(myLevelData.playerHighlight, playerStartPos[i], Quaternion.identity);
-            newPlayHighlight.position -= Vector3.forward;
-        }
+        createCriticalPath();
+        buildBorder();
         buildLevel();
-        StartCoroutine(visualizeCritPath());
+        // StartCoroutine(visualizeCritPath());
 	}
 
     IEnumerator visualizeCritPath()
@@ -52,20 +43,39 @@ public class LevelGenerator : MonoBehaviour {
 		
 	}
 
+    void createCriticalPath()
+    {
+        for (int i = 0; i < playerStartPos.Length; i++)
+        {
+            createSpawnRooms(playerStartPos[i]);
+            Debug.Log("Generating Path for Player " + i + 1 + "...");
+            generateCritPath(playerStartPos[i]); // Create a critical path from player's spawn to center
+        }
+        for (int i = 0; i < playerStartPos.Length; i++)
+        {
+            Transform newPlayHighlight = Instantiate(myLevelData.playerHighlight, playerStartPos[i], Quaternion.identity);
+            newPlayHighlight.position -= Vector3.forward;
+        }
+    }
+
     void buildLevel()
     {
-        for (int i = -myLevelData.mapHalfWidth; i <= myLevelData.mapHalfWidth; i++)
+        for (int i = -myLevelData.mapHalfWidth; i <= myLevelData.mapHalfWidth; i++) // Go thru entire map and spawn tiles
         {
             for (int j = -myLevelData.mapHalfHeight; j <= myLevelData.mapHalfHeight; j++)
             {
                 Vector2 newLoc = new Vector2(i, j);
-                if (!critPath.Contains(newLoc))
+                if (!critPath.Contains(newLoc)) // If location is not part of critical path, try to spawn tile
                 {
                     spawnNewTile(newLoc);
                 }
             }
         }
-        for(int i = -myLevelData.mapHalfWidth - 1; i <= myLevelData.mapHalfWidth; i++)
+    }
+
+    void buildBorder()
+    {
+        for (int i = -myLevelData.mapHalfWidth - 1; i <= myLevelData.mapHalfWidth; i++)
         {
             Transform borderTileT = Instantiate(myLevelData.solidTiles[0], new Vector2(i, myLevelData.mapHalfHeight + 1), Quaternion.identity);
             Transform borderTileB = Instantiate(myLevelData.solidTiles[0], new Vector2(i, -myLevelData.mapHalfHeight - 1), Quaternion.identity);
@@ -74,6 +84,14 @@ public class LevelGenerator : MonoBehaviour {
         {
             Transform borderTileL = Instantiate(myLevelData.solidTiles[0], new Vector2(-myLevelData.mapHalfWidth - 1, i), Quaternion.identity);
             Transform borderTileB = Instantiate(myLevelData.solidTiles[0], new Vector2(myLevelData.mapHalfWidth + 1, i), Quaternion.identity);
+        }
+        for (int i = 0; i < playerStartPos.Length; i++)
+        {
+            if (!Physics2D.OverlapBox(playerStartPos[i] + Vector2.down, Vector2.one * 0.5f, 0))
+            {
+                Transform spawnFloor = Instantiate(myLevelData.solidTiles[0], playerStartPos[i] + Vector2.down, Quaternion.identity);
+                critPath.Add(spawnFloor.position);
+            }
         }
     }
 
@@ -90,7 +108,8 @@ public class LevelGenerator : MonoBehaviour {
                 break;
             }
         }
-        tilesList = conCat(myLevelData.solidTiles, myLevelData.weakTiles);
+        // tilesList = conCat(myLevelData.solidTiles, myLevelData.weakTiles);
+        tilesList = myLevelData.weakTiles;
         if (!closeToPlayer) { tilesList = conCat(tilesList, myLevelData.dangerTiles); }
         if(Random.value < chance)
         {
@@ -140,6 +159,7 @@ public class LevelGenerator : MonoBehaviour {
             List<Vertex> potentialSearched = new List<Vertex>();
             for(int i = 0; i < dirs.Length; i++)
             {
+                if(currentVertex.location == start && dirs[i] == Vector2.down) { continue; } // Don't add the tile directly below the player(needs a place to stand at spawn)
                 Vector2 newLoc = currentVertex.location + dirs[i];
                 int dist = manhattanDistance(newLoc, myLevelData.mapCenter);
                 if (isInMap(newLoc) && !alreadySearched.Contains(newLoc) && dist <= currentVertex.moveCost)
@@ -154,6 +174,22 @@ public class LevelGenerator : MonoBehaviour {
             alreadySearched.Add(currentVertex.location);
             if(potentialSearched.Count > 0) { toBeSearched.Enqueue(potentialSearched[UnityEngine.Random.Range(0, potentialSearched.Count)]); }
         }
+    }
+
+    void createSpawnRooms(Vector2 spawn)
+    {
+        Vector2[] dirs =
+        {
+            Vector2.up,
+            Vector2.down,
+            Vector2.left,
+            Vector2.right,
+            new Vector2(1,1),
+            new Vector2(-1,1),
+            new Vector2(-1, -1),
+            new Vector2(1,-1),
+        };
+        for (int i = 0; i < dirs.Length; i++) { critPath.Add(spawn + dirs[i]); }
     }
 
     bool isInMap(Vector2 loc)
