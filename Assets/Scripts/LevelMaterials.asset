@@ -28,7 +28,15 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: -1, y: 0}
   unitSize: 1
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
   blockDensity: 0.482
+=======
+  blockDensity: 0.708
+>>>>>>> Stashed changes
+=======
+  blockDensity: 0.708
+>>>>>>> Stashed changes
   mapHalfWidth: 18
   mapHalfHeight: 11
   cushioning: 0
