@@ -25,6 +25,9 @@ public class LevelMaterials : ScriptableObject {
     [Range(8, 30)]
     public int mapHalfHeight;
 
+    [Range(1, 10)]
+    public int cushioning;
+
     [Range(2, 8)]
     public int roomCount;
 
