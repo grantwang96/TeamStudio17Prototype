@@ -16,7 +16,7 @@ public class LevelGeneratorRooms : MonoBehaviour {
         public Vector2 pathDir;
     }
 
-    List<Vector2> critPath = new List<Vector2>();
+    public List<Vector2> critPath = new List<Vector2>();
     List<Vector2> roomLocs = new List<Vector2>();
 
     List<roomData> rooms = new List<roomData>();
@@ -66,6 +66,7 @@ public class LevelGeneratorRooms : MonoBehaviour {
         buildLevel();
         // shuffle(playerStartPos);
         Debug.Log("FINISHED!");
+        StartCoroutine(visualizeCritPath());
     }
 	
 	// Update is called once per frame
@@ -85,11 +86,13 @@ public class LevelGeneratorRooms : MonoBehaviour {
 
     void initiateCritPathBuild()
     {
+        Debug.Log("Starting critical path build...");
         for(int i = 0; i < spawnRooms.Count; i++)
         {
             List<roomData> roomPath = roomPathfinding(spawnRooms[i], myLevelData.mapCenter);
-            if(roomPath != null && roomPath.Count > 0)
+            if(roomPath != null)
             {
+                Debug.Log("Initiating Room To Room pathfinding");
                 roomToRoomPathFinding(roomPath);
             }
         }
@@ -122,6 +125,8 @@ public class LevelGeneratorRooms : MonoBehaviour {
 
     void roomToRoomPathFinding(List<roomData> roomPath)
     {
+        Debug.Log("Starting room to room pathfinding!");
+        roomPath.Reverse();
         for(int i = 0; i < roomPath.Count - 1; i++)
         {
             tilePathfinding(roomPath[i], roomPath[i + 1]);
@@ -130,6 +135,7 @@ public class LevelGeneratorRooms : MonoBehaviour {
 
     List<roomData> roomPathfinding(roomData currRoom, Vector2 target)
     {
+        Debug.Log("Starting room pathfinding from " + currRoom.location);
         Queue<Vertex> toBeSearched = new Queue<Vertex>();
         List<Vector2> beenThere = new List<Vector2>();
         Vector2[] dirs =
@@ -148,13 +154,16 @@ public class LevelGeneratorRooms : MonoBehaviour {
             current = toBeSearched.Dequeue();
             if(current.loc == target) // You've found it!
             {
+                Debug.Log("Found path from room!");
                 List<roomData> path = new List<roomData>();
                 while(current != null)
                 {
+                    Debug.Log("Adding room at " + current.loc);
                     roomData newRoomData = new roomData();
                     newRoomData.location = current.loc;
                     newRoomData.pathDir = current.pathDir;
                     if(newRoomData.location == currRoom.location) { newRoomData.isSpawnRoom = true; }
+                    path.Add(newRoomData);
                     current = current.parent;
                 }
                 return path;
@@ -185,6 +194,9 @@ public class LevelGeneratorRooms : MonoBehaviour {
 
     void tilePathfinding(roomData currRoom, roomData nextRoom) // YO DAWG, I HEARD YOU LIKE A*!
     {
+        Debug.Log("Started tilePathfinding from room" + currRoom.location);
+        Debug.Log("Going to " + nextRoom.location);
+
         Queue<Vertex> toBeSearched = new Queue<Vertex>();
         List<Vector2> beenThere = new List<Vector2>();
         Vector2[] dirs =
@@ -206,7 +218,7 @@ public class LevelGeneratorRooms : MonoBehaviour {
             {
                 while(current != null)
                 {
-                    if (!critPath.Contains(current.loc)) { critPath.Add(current.loc); }
+                    critPath.Add(current.loc);
                     current = current.parent;
                 }
             }
@@ -214,8 +226,8 @@ public class LevelGeneratorRooms : MonoBehaviour {
             for(int i = 0; i < dirs.Length; i++)
             {
                 Vector2 newLoc = current.loc + dirs[i];
-                int dist = manhattanDistance(current.loc, nextRoom.location);
-                if (isInMap(newLoc) && dist < current.moveCost + 1 && !beenThere.Contains(newLoc))
+                int dist = manhattanDistance(newLoc, nextRoom.location);
+                if (isInMap(newLoc) && dist <= current.moveCost + 1 && !beenThere.Contains(newLoc))
                 {
                     Vertex nextVertex = new Vertex();
                     nextVertex.loc = newLoc;
@@ -225,7 +237,10 @@ public class LevelGeneratorRooms : MonoBehaviour {
                     potentialSearches.Add(nextVertex);
                 }
             }
-            toBeSearched.Enqueue(potentialSearches[Random.Range(0, potentialSearches.Count)]);
+            if(toBeSearched.Count > 0) {
+                Debug.Log("Adding a thing!");
+                toBeSearched.Enqueue(potentialSearches[Random.Range(0, potentialSearches.Count)]);
+            }
             beenThere.Add(current.loc);
         }
     }
@@ -263,6 +278,9 @@ public class LevelGeneratorRooms : MonoBehaviour {
 
     void cornerRoomCheck()
     {
+        Debug.Log("Room Location Limit X: " + (mapLimitX - (roomWidth / 2)));
+        Debug.Log("Room Location Limit Y: " + (mapLimitY - (roomHeight / 2)));
+
         for(int i = 0; i < rooms.Count; i++)
         {
             if(Mathf.Abs(rooms[i].location.x) == mapLimitX - (roomWidth / 2) &&
@@ -270,6 +288,7 @@ public class LevelGeneratorRooms : MonoBehaviour {
             {
                 rooms[i].isSpawnRoom = true;
                 spawnRooms.Add(rooms[i]);
+                Debug.Log("Added Room at " + rooms[i].location + " to spawn rooms.");
             }
         }
     }
@@ -324,6 +343,17 @@ public class LevelGeneratorRooms : MonoBehaviour {
         {
             colorRoom(roomLocs[i]);
         }
+    }
+
+    IEnumerator visualizeCritPath()
+    {
+        for (int i = 0; i < critPath.Count; i++)
+        {
+            Transform newCritHighlight = Instantiate(myLevelData.critPathHighlight, critPath[i], Quaternion.identity);
+            newCritHighlight.position -= Vector3.forward;
+            yield return new WaitForSeconds(0.1f);
+        }
+        Debug.Log("FINISHED!");
     }
     #endregion
 }

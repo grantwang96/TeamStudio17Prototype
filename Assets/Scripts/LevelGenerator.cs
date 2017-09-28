@@ -54,9 +54,9 @@ public class LevelGenerator : MonoBehaviour {
 
     void buildLevel()
     {
-        for (int i = -myLevelData.mapHalfWidth; i < myLevelData.mapHalfWidth; i++)
+        for (int i = -myLevelData.mapHalfWidth; i <= myLevelData.mapHalfWidth; i++)
         {
-            for (int j = -myLevelData.mapHalfHeight; j < myLevelData.mapHalfHeight; j++)
+            for (int j = -myLevelData.mapHalfHeight; j <= myLevelData.mapHalfHeight; j++)
             {
                 Vector2 newLoc = new Vector2(i, j);
                 if (!critPath.Contains(newLoc))
@@ -70,7 +70,7 @@ public class LevelGenerator : MonoBehaviour {
             Transform borderTileT = Instantiate(myLevelData.solidTiles[0], new Vector2(i, myLevelData.mapHalfHeight + 1), Quaternion.identity);
             Transform borderTileB = Instantiate(myLevelData.solidTiles[0], new Vector2(i, -myLevelData.mapHalfHeight - 1), Quaternion.identity);
         }
-        for (int i = -myLevelData.mapHalfHeight - 1; i <= myLevelData.mapHalfHeight + 1; i++)
+        for (int i = -myLevelData.mapHalfHeight - 1; i <= myLevelData.mapHalfHeight; i++)
         {
             Transform borderTileL = Instantiate(myLevelData.solidTiles[0], new Vector2(-myLevelData.mapHalfWidth - 1, i), Quaternion.identity);
             Transform borderTileB = Instantiate(myLevelData.solidTiles[0], new Vector2(myLevelData.mapHalfWidth + 1, i), Quaternion.identity);
@@ -102,16 +102,19 @@ public class LevelGenerator : MonoBehaviour {
     {
         public Vector2 location;
         public Vertex parent;
+        public int moveCost;
     }
 
     void generateCritPath(Vector2 start)
     {
         // NOTE: THIS FUNCTION DOES NOT CLEAR CRIT PATH BEFORE HAND
-        Stack<Vertex> toBeSearched = new Stack<Vertex>(); // Points to be searched
+        Queue<Vertex> toBeSearched = new Queue<Vertex>(); // Points to be searched
         List<Vector2> alreadySearched = new List<Vector2>();
+
         Vertex currentVertex = new Vertex();
         currentVertex.location = start;
-        toBeSearched.Push(currentVertex);
+        currentVertex.moveCost = manhattanDistance(currentVertex.location, myLevelData.mapCenter);
+        toBeSearched.Enqueue(currentVertex);
         Vector2[] dirs =
         {
             new Vector2(0, 1),
@@ -121,7 +124,7 @@ public class LevelGenerator : MonoBehaviour {
         };
         while(toBeSearched.Count > 0)
         {
-            currentVertex = toBeSearched.Pop();
+            currentVertex = toBeSearched.Dequeue();
             if (currentVertex.location == myLevelData.mapCenter) // If we've reached the center
             {
                 while(currentVertex != null)
@@ -134,25 +137,33 @@ public class LevelGenerator : MonoBehaviour {
                 }
                 return;
             }
-            shuffle(dirs); // Shuffle the directions for even more randomness!
+            List<Vertex> potentialSearched = new List<Vertex>();
             for(int i = 0; i < dirs.Length; i++)
             {
                 Vector2 newLoc = currentVertex.location + dirs[i];
-                if (isInMap(newLoc) && !alreadySearched.Contains(newLoc))
+                int dist = manhattanDistance(newLoc, myLevelData.mapCenter);
+                if (isInMap(newLoc) && !alreadySearched.Contains(newLoc) && dist <= currentVertex.moveCost)
                 {
                     Vertex newVertex = new Vertex();
                     newVertex.location = newLoc;
                     newVertex.parent = currentVertex;
-                    toBeSearched.Push(newVertex);
+                    newVertex.moveCost = dist;
+                    potentialSearched.Add(newVertex);
                 }
             }
             alreadySearched.Add(currentVertex.location);
+            if(potentialSearched.Count > 0) { toBeSearched.Enqueue(potentialSearched[UnityEngine.Random.Range(0, potentialSearched.Count)]); }
         }
     }
 
     bool isInMap(Vector2 loc)
     {
         return (Mathf.Abs(loc.x) <= myLevelData.mapHalfWidth && Mathf.Abs(loc.y) <= myLevelData.mapHalfHeight);
+    }
+
+    int manhattanDistance(Vector2 start, Vector2 target)
+    {
+        return (int)Mathf.Abs(start.x - target.x) + (int)Mathf.Abs(start.y - target.y);
     }
 
     void shuffle<T>(T[] leArray)
