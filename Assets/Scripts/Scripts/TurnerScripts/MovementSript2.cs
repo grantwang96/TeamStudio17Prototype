@@ -31,8 +31,8 @@ public class MovementSript2 : MonoBehaviour {
 		{
 			transform.position += Vector3.down * movementspeed * Time.deltaTime;
 		}
-		if (Input.GetKey(KeyCode.Space)){
-			GetComponent<Rigidbody2D>().AddForce (new Vector2(0, jumpForce));
+		if (Input.GetKeyDown (KeyCode.Space)){
+			GetComponent<Rigidbody2D>().AddForce (new Vector2(0, jumpForce), ForceMode2D.Impulse);
 		}
 	}
 

@@ -118,7 +118,7 @@ public class LevelGenerator : MonoBehaviour {
         if (!closeToPlayer) { tilesList = conCat(tilesList, myLevelData.dangerTiles); }
         if(Random.value < chance)
         {
-            Transform newTile = Instantiate(tilesList[Random.Range(0, tilesList.Length - 1)], loc, Quaternion.identity);
+            Transform newTile = Instantiate(tilesList[Random.Range(0, tilesList.Length)], loc, Quaternion.identity);
         }
     }
 
