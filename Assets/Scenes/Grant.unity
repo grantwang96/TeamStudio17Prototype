@@ -242,7 +242,7 @@ MonoBehaviour:
   done: 0
   myLevelData: {fileID: 11400000, guid: c9dada4f3a0fb4449a064df9a7633618, type: 2}
   playerStartPos: []
-  tempPlayerCount: 4
+  tempPlayerCount: 0
 --- !u!114 &2124642210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   myLevelData: {fileID: 0}
   playerStartPos: []
   critPath: []
-  tempPlayerCount: 4
+  tempPlayerCount: 0
 --- !u!114 &2124642211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,4 +274,4 @@ MonoBehaviour:
   playerStartPos: []
   mapHalfWidth: 0
   mapHalfHeight: 0
-  tempPlayerCount: 4
+  tempPlayerCount: 0
