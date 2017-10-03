@@ -21,20 +21,23 @@ public class Brains : ScriptableObject {
 public class KeyboardBrain : Brains {
 	public override void RunBrain ()
 	{
-		myPlayer.horizontalInput = Input.GetAxisRaw ("Horizontal");
+		myPlayer.horizontalInput = Input.GetAxis ("Horizontal");
 
 //		float xInput = Input.GetAxis("Horizontal");
 //		if (xInput != 0) myPlayer.GroundMove (xInput);
 		if (Input.GetKeyDown (KeyCode.Space)){ 
-			myPlayer.qJump = true;
+			myPlayer.jumpQueued = true;
 		}
-		if (Input.GetKeyUp (KeyCode.A)) {
-			myPlayer.cancelXVelocity();
-		} else if (Input.GetKeyUp (KeyCode.D)) {
-			myPlayer.cancelXVelocity();
+		else {
+			myPlayer.jumpQueued = false;
+		}
+		if (Input.GetKey (KeyCode.Space)) { 
+			myPlayer.jumpHeld = true;
+		} else {
+			myPlayer.jumpHeld = false;
 		}
 		if (Input.GetMouseButtonDown (0)) {
-			myPlayer.heldItem.Execute ();
+			//myPlayer.heldItem.Execute ();
 		}
 		Vector3 tempV3 = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		myPlayer.myCursor.position = new Vector3(tempV3.x, tempV3.y);
@@ -52,10 +55,16 @@ public class ControllerBrain : Brains {
 
 		//		float xInput = Input.GetAxis("Horizontal");
 		//		if (xInput != 0) myPlayer.GroundMove (xInput);
-		if (Input.GetButtonDown ("Fire2")){ 
-			myPlayer.qJump = true;
+		if (Input.GetButtonDown ("Fire2")) { 
+			myPlayer.jumpQueued = true;
+		} else {
+			myPlayer.jumpQueued = false;
 		}
-
+		if (Input.GetButton ("Fire2")) { 
+			myPlayer.jumpHeld = true;
+		} else {
+			myPlayer.jumpHeld = false;
+		}
 
 
 
