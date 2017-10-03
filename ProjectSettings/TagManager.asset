@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - Fire
+  - Platform
+  - Wall
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX

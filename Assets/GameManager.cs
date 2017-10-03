@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 			canvas2.SetActive (false);
 			canvas3.SetActive (false);
 			canvas4.SetActive (false);
-
+      
 			roundsButton.transform.Find("Text").GetComponent<Text>().text = "Rounds: " + rounds.ToString ();
 			playersButton.transform.Find("Text").GetComponent<Text>().text = "Players: " + num_of_players.ToString ();
 
