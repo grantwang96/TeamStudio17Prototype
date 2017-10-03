@@ -8,14 +8,14 @@ public class CheckerScript : MonoBehaviour {
 	public string tagToCheckFor;
 	// Use this for initialization
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.tag == tagToCheckFor) {
+		//if (col.tag == tagToCheckFor) {
 			positiveCheck = true;
-		}
+		//}
 	}
 
 	void OnTriggerExit2D(Collider2D col){
-		if (col.tag == tagToCheckFor) {
+		//if (col.tag == tagToCheckFor) {
 			positiveCheck = false;
-		}
+		//}
 	}
 }

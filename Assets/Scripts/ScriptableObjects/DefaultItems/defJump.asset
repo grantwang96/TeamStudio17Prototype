@@ -15,4 +15,4 @@ MonoBehaviour:
   itemDescription: 
   itemValue: 0
   itemType: 0
-  jumpForce: 30
+  jumpForce: 40

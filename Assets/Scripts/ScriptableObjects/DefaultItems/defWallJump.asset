@@ -15,5 +15,5 @@ MonoBehaviour:
   itemDescription: 
   itemValue: 0
   itemType: 0
-  verticalJumpForce: 10
-  horizontalJumpForce: 5
+  verticalJumpForce: 40
+  horizontalJumpForce: 15

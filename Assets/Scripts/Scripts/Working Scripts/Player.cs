@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
 	public bool jumpHeld;
 	public bool grounded;
 	public bool attackQueued;
+	public float attackTimer;
 	public bool rollQueued;
 	public bool rolling;
 	public float rollTimer;
@@ -44,6 +45,15 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		myBrain.RunBrain();
+		if (attackTimer > 0) attackTimer -= Time.deltaTime;
+
+		if (facing > 0){
+			myCursor.localPosition = new Vector3(.25f, 0f, 0f);
+		}
+
+		else if (facing < 0){
+			myCursor.localPosition = new Vector3(-.25f, 0f, 0f);
+		}
 	}
 
 	//called every physics update

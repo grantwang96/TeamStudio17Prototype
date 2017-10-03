@@ -53,6 +53,7 @@ public class DefaultGroundItem : StateReplacingItem {
 public class DefaultAirItem : StateReplacingItem {
 
 	public float acceleration;
+	public float drag;
 	public float gravity;
 	public float bonusAntiJumpGrav;
 	public override void RunFunction (Player caller)
@@ -60,6 +61,7 @@ public class DefaultAirItem : StateReplacingItem {
 		caller.velocity += new Vector2 (caller.horizontalInput * acceleration, -gravity);
 		if (caller.velocity.y > 0 && !caller.jumpHeld)
 			caller.velocity += Vector2.down * bonusAntiJumpGrav;
+		caller.velocity += -caller.velocity.normalized * (drag * caller.velocity.sqrMagnitude);
 	}
 }
 
@@ -83,7 +85,6 @@ public class DefaultWallItem : StateReplacingItem {
 public class DefaultRollItem : StateReplacingItem {
 
 	public float rollDuration;
-	public float rollInitialBonus; //decays over time
 	public float rollSpeed;
 	public override void RunFunction (Player caller)
 	{
@@ -91,9 +92,9 @@ public class DefaultRollItem : StateReplacingItem {
 			caller.rollTimer = 0;
 			caller.rolling = true;
 			if (caller.facing > 0) {
-				caller.velocity = new Vector2 (rollSpeed + (rollInitialBonus * (rollDuration - caller.rollTimer / rollDuration)), 0);
+				caller.velocity = new Vector2 (rollSpeed, 0);
 			} else {
-				caller.velocity = new Vector2 (-rollSpeed - (rollInitialBonus * (rollDuration - caller.rollTimer / rollDuration)), 0);
+				caller.velocity = new Vector2 (-rollSpeed, 0);
 			}
 		}
 		if (!caller.grounded) {
@@ -104,6 +105,7 @@ public class DefaultRollItem : StateReplacingItem {
 			caller.rollTimer = 0;
 			caller.rolling = false;
 			caller.velocity = Vector2.zero;
+			caller.rollQueued = false;
 		}
 	}
 }
@@ -112,27 +114,20 @@ public class DefaultRollItem : StateReplacingItem {
 public class DefaultAttackItem : ActionReplacingItem {
 
 	public float attackDuration;
+	public float attackEndlag;
 	public Vector2 attackOffset;
 	public GameObject hitBoxPrefab;
 
 	public override void RunFunction (Player caller)
 	{
-		DoAttack (attackDuration, caller);
-	}
-
-	IEnumerator DoAttack(float duration, Player aggressor){
-		float internalTimer = 0;
-		GameObject attackBox;
-		attackBox = (GameObject)Instantiate (hitBoxPrefab, aggressor.transform.position + new Vector3 (attackOffset.x * aggressor.facing, attackOffset.y), Quaternion.identity);
-		attackBox.transform.parent = aggressor.transform;
-		attackBox.tag = aggressor.tag;
-		attackBox.name = aggressor.gameObject.name + "'s hitbox";
-		while (internalTimer < duration) {
-
-			internalTimer += Time.deltaTime;
-			yield return new WaitForEndOfFrame ();
+		if (caller.attackTimer <= 0){
+		GameObject attackBox = (GameObject)Instantiate (hitBoxPrefab, caller.transform.position + new Vector3 (attackOffset.x * caller.facing, attackOffset.y), Quaternion.identity);
+		attackBox.transform.parent = caller.transform;
+		attackBox.tag = caller.tag;
+		attackBox.name = caller.gameObject.name + "'s hitbox";
+		attackBox.GetComponent<SimpleKillPlayer>().lifetime = attackDuration;
+			caller.attackTimer = attackDuration + attackEndlag;
 		}
-		DestroyImmediate (attackBox);
 	}
 }
 
