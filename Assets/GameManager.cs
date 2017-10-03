@@ -41,8 +41,8 @@ public class GameManager : MonoBehaviour {
 			canvas3.SetActive (false);
 			canvas4.SetActive (false);
 
-			roundsButton.GetComponentsInChildren<Text>() = "Rounds: " + rounds.ToString ();
-			playersButton.GetComponentsInChildren<Text>() = "Players: " + num_of_players.ToString ();
+			roundsButton.transform.Find("Text").GetComponent<Text>().text = "Rounds: " + rounds.ToString ();
+			playersButton.transform.Find("Text").GetComponent<Text>().text = "Players: " + num_of_players.ToString ();
 
 		}
 
