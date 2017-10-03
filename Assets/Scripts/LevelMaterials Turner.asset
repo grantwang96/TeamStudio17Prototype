@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e387758f85c0304bb1633a7bae9f882, type: 3}
+  m_Name: LevelMaterials Turner
+  m_EditorClassIdentifier: 
+  solidTiles:
+  - {fileID: 4142619889406576, guid: dd8a052cc8166a84dbe61b604a05a809, type: 2}
+  weakTiles:
+  - {fileID: 4837144524081894, guid: d14137b3b2441d744bfc0109cf8f1328, type: 2}
+  - {fileID: 4627314713689506, guid: aac316d0bb56510419e8a35cb4bc91b5, type: 2}
+  dangerTiles: []
+  playerHighlight: {fileID: 4811446763413100, guid: 4f67d363901276f48b950b3990a5cbfb,
+    type: 2}
+  critPathHighlight: {fileID: 4564544478826364, guid: 7022113ba4cf3024d9936e09cd5f9b84,
+    type: 2}
+  dirs: []
+  unitSize: 1
+  blockDensity: 0.6
+  mapHalfWidth: 24
+  mapHalfHeight: 24
+  cushioning: 0
+  roomCount: 4
+  mapCenter: {x: 0, y: 0}

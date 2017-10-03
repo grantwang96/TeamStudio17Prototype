@@ -2,35 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGenerator : MonoBehaviour {
+public class LevelGeneratorScaled : MonoBehaviour {
 
     public bool done;
 
     public LevelMaterials myLevelData;
     public Vector2[] playerStartPos;
-    
+
+    public int mapHalfWidth;
+    public int mapHalfHeight;
+
     List<Vector2> critPath = new List<Vector2>();
 
     [Range(1, 4)]
     public int tempPlayerCount;
-    
-	// Use this for initialization
-	void Start () {
-        // Generate player locations
+
+    // Use this for initialization
+    void Start()
+    {
         done = false;
+        // Generate player locations
         playerStartPos = new Vector2[] {
-            new Vector2(-myLevelData.mapHalfWidth, myLevelData.mapHalfHeight),
-            new Vector2(myLevelData.mapHalfWidth, myLevelData.mapHalfHeight),
-            new Vector2(-myLevelData.mapHalfWidth, -myLevelData.mapHalfHeight),
-            new Vector2(myLevelData.mapHalfWidth, -myLevelData.mapHalfHeight),
+            new Vector2(-myLevelData.mapHalfWidth * myLevelData.cushioning, myLevelData.mapHalfHeight * myLevelData.cushioning),
+            new Vector2(myLevelData.mapHalfWidth * myLevelData.cushioning, myLevelData.mapHalfHeight * myLevelData.cushioning),
+            new Vector2(-myLevelData.mapHalfWidth * myLevelData.cushioning, -myLevelData.mapHalfHeight * myLevelData.cushioning),
+            new Vector2(myLevelData.mapHalfWidth * myLevelData.cushioning, -myLevelData.mapHalfHeight * myLevelData.cushioning),
         };
+        mapHalfWidth = myLevelData.mapHalfWidth * myLevelData.cushioning + myLevelData.cushioning;
+        mapHalfHeight = myLevelData.mapHalfHeight * myLevelData.cushioning + myLevelData.cushioning;
 
         createCriticalPath();
         buildBorder();
         buildLevel();
-        // StartCoroutine(visualizeCritPath());
-        done = true;
-	}
+        StartCoroutine(visualizeCritPath());
+    }
 
     IEnumerator visualizeCritPath()
     {
@@ -42,11 +47,12 @@ public class LevelGenerator : MonoBehaviour {
         }
         Debug.Log("FINISHED!");
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void createCriticalPath()
     {
@@ -69,7 +75,7 @@ public class LevelGenerator : MonoBehaviour {
         {
             for (int j = -myLevelData.mapHalfHeight; j <= myLevelData.mapHalfHeight; j++)
             {
-                Vector2 newLoc = new Vector2(i, j);
+                Vector2 newLoc = new Vector2(i * myLevelData.cushioning, j * myLevelData.cushioning);
                 if (!critPath.Contains(newLoc)) // If location is not part of critical path, try to spawn tile
                 {
                     spawnNewTile(newLoc);
@@ -105,9 +111,9 @@ public class LevelGenerator : MonoBehaviour {
         float chance = myLevelData.blockDensity;
         bool closeToPlayer = false;
         Transform[] tilesList;
-        for(int i = 0; i < playerStartPos.Length; i++)
+        for (int i = 0; i < playerStartPos.Length; i++)
         {
-            if(Vector2.Distance(loc, playerStartPos[i]) < 4f)
+            if (Vector2.Distance(loc, playerStartPos[i]) < 4f)
             {
                 closeToPlayer = true;
                 break;
@@ -116,9 +122,9 @@ public class LevelGenerator : MonoBehaviour {
         // tilesList = conCat(myLevelData.solidTiles, myLevelData.weakTiles);
         tilesList = myLevelData.weakTiles;
         if (!closeToPlayer) { tilesList = conCat(tilesList, myLevelData.dangerTiles); }
-        if(Random.value < chance)
+        if (Random.value < chance)
         {
-            Transform newTile = Instantiate(tilesList[Random.Range(0, tilesList.Length)], loc, Quaternion.identity);
+            Transform newTile = Instantiate(tilesList[Random.Range(0, tilesList.Length - 1)], loc, Quaternion.identity);
         }
     }
 
@@ -146,12 +152,12 @@ public class LevelGenerator : MonoBehaviour {
             new Vector2(0, -1),
             new Vector2(-1, 0),
         };
-        while(toBeSearched.Count > 0)
+        while (toBeSearched.Count > 0)
         {
             currentVertex = toBeSearched.Dequeue();
             if (currentVertex.location == myLevelData.mapCenter) // If we've reached the center
             {
-                while(currentVertex != null)
+                while (currentVertex != null)
                 {
                     if (!critPath.Contains(currentVertex.location))
                     {
@@ -162,9 +168,9 @@ public class LevelGenerator : MonoBehaviour {
                 return;
             }
             List<Vertex> potentialSearched = new List<Vertex>();
-            for(int i = 0; i < dirs.Length; i++)
+            for (int i = 0; i < dirs.Length; i++)
             {
-                if(currentVertex.location == start && dirs[i] == Vector2.down) { continue; } // Don't add the tile directly below the player(needs a place to stand at spawn)
+                if (currentVertex.location == start && dirs[i] == Vector2.down) { continue; } // Don't add the tile directly below the player(needs a place to stand at spawn)
                 Vector2 newLoc = currentVertex.location + dirs[i];
                 int dist = manhattanDistance(newLoc, myLevelData.mapCenter);
                 if (isInMap(newLoc) && !alreadySearched.Contains(newLoc) && dist <= currentVertex.moveCost)
@@ -177,7 +183,7 @@ public class LevelGenerator : MonoBehaviour {
                 }
             }
             alreadySearched.Add(currentVertex.location);
-            if(potentialSearched.Count > 0) { toBeSearched.Enqueue(potentialSearched[UnityEngine.Random.Range(0, potentialSearched.Count)]); }
+            if (potentialSearched.Count > 0) { toBeSearched.Enqueue(potentialSearched[UnityEngine.Random.Range(0, potentialSearched.Count)]); }
         }
     }
 
@@ -209,7 +215,7 @@ public class LevelGenerator : MonoBehaviour {
 
     void shuffle<T>(T[] leArray)
     {
-        for(int i = 0; i < leArray.Length; i++)
+        for (int i = 0; i < leArray.Length; i++)
         {
             T temp = leArray[i];
             int rand = Random.Range(0, leArray.Length);
@@ -221,11 +227,11 @@ public class LevelGenerator : MonoBehaviour {
     T[] conCat<T>(T[] arr1, T[] arr2)
     {
         T[] newArr = new T[arr1.Length + arr2.Length];
-        for(int i = 0; i < arr1.Length; i++)
+        for (int i = 0; i < arr1.Length; i++)
         {
             newArr[i] = arr1[i];
         }
-        for(int i = 0; i < arr2.Length; i++)
+        for (int i = 0; i < arr2.Length; i++)
         {
             newArr[i + arr1.Length] = arr2[i];
         }
