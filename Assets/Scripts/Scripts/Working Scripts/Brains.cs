@@ -49,13 +49,16 @@ public class KeyboardBrain : Brains {
 
 [CreateAssetMenu(fileName = "ControllerBrain")]
 public class ControllerBrain : Brains {
+	public int controllerID = 1;
+
 	public override void RunBrain ()
 	{
-		myPlayer.horizontalInput = Input.GetAxis ("Horizontal");
+		myPlayer.horizontalInput = Input.GetAxis ("Horizontal" + controllerID);
 
 		//		float xInput = Input.GetAxis("Horizontal");
 		//		if (xInput != 0) myPlayer.GroundMove (xInput);
-		if (Input.GetButtonDown ("Fire2")) { 
+		if (Input.GetButtonDown ("Fire2")) { 	
+			Debug.Log("buttonpressed");
 			myPlayer.jumpQueued = true;
 		} else {
 			myPlayer.jumpQueued = false;

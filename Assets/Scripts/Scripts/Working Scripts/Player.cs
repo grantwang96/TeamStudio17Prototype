@@ -43,12 +43,12 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		myBrain.RunBrain();
 	}
 
 	//called every physics update
 	void FixedUpdate (){
-		myBrain.RunBrain();
+		
 
 		StateManager ();
 
