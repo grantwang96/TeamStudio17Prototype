@@ -205,9 +205,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2124642208}
-  - component: {fileID: 2124642209}
   - component: {fileID: 2124642210}
   - component: {fileID: 2124642211}
+  - component: {fileID: 2124642209}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -234,11 +234,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2124642207}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38144cf046528c4a9cec3c63542bfc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 422bc81f739484ff6a14e139e2b74963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  done: 0
   myLevelData: {fileID: 11400000, guid: 66be3d87fe5348f44bf8a8e04e7742ce, type: 2}
   playerStartPos: []
   tempPlayerCount: 4
@@ -263,11 +264,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2124642207}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d34fd3bb17e9264f96dbb8c3bf71b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  done: 0
   myLevelData: {fileID: 11400000, guid: 66be3d87fe5348f44bf8a8e04e7742ce, type: 2}
   playerStartPos: []
   mapHalfWidth: 0
