@@ -6,11 +6,14 @@ public class Player : MonoBehaviour {
 	public Brains myBrain;
 	public TweakablePlayerValues myValues;
 	private Rigidbody2D myRB;
+	public Transform myCursor;
 
 	private int playerState = 0; //0 is ground, 1 is aerial, 2 is wall, 3 is roll
 	public bool qJump;
 	public float horizontalInput;
 
+
+	public Item heldItem;
 	// Use this for initialization
 	void Start () {
 		myRB = this.GetComponent<Rigidbody2D>();
@@ -33,7 +36,7 @@ public class Player : MonoBehaviour {
 			GroundState ();
 		}
 		if (playerState == 1){
-			qJump = false; //bandaid to be fixed later (the boolean sets to true while in air if you click space bar... causes it to "bounce"
+			//qJump = false; //bandaid to be fixed later (the boolean sets to true while in air if you click space bar... causes it to "bounce"
 			AerialState ();
 		}
 		if (playerState == 2){
@@ -42,7 +45,7 @@ public class Player : MonoBehaviour {
 		if (playerState == 3){
 			RollState ();
 		}
-		quadDrag ();
+		//quadDrag ();
 		stateController ();
 	}
 
@@ -59,7 +62,6 @@ public class Player : MonoBehaviour {
 		GroundMove ();
 		if (qJump == true){
 			if(isGrounded()){
-				playerState = 1;
 				Jump ();
 			}
 			qJump = false;
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour {
 
 	void AerialState(){
 		AerialMove ();
-		Debug.Log("movement");
+		//Debug.Log("movement");
 	}
 
 	void WallState(){
@@ -87,9 +89,9 @@ public class Player : MonoBehaviour {
 	public void GroundMove(){ //-1 to 1 from horizontal axis
 		
 		myRB.AddForce(Vector2.right * horizontalInput * myValues.groundAccel);
-		if (horizontalInput == 0){
-			cancelXVelocity ();
-		}
+//		if (horizontalInput == 0){
+//			cancelXVelocity ();
+//		}
 	}
 
 	void AerialMove(){
@@ -131,7 +133,7 @@ public class Player : MonoBehaviour {
 //		else{return false;}
 	}
 
-	void cancelXVelocity(){
+	public void cancelXVelocity(){
 		myRB.velocity = new Vector2 (0, myRB.velocity.y);
 	}
 
