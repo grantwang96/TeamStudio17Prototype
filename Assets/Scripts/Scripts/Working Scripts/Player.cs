@@ -94,14 +94,14 @@ public class Player : MonoBehaviour {
 				onWall = false;
 			}
 		}
-
-		if (grounded) {
-			if (rollQueued || rolling) {
-				RollFunction.RunFunction (this);
-				rollTimer += Time.fixedDeltaTime;
-			} else {
+		if (rollQueued || rolling) {
+			RollFunction.RunFunction (this);
+			rollTimer += Time.fixedDeltaTime;
+		}
+		else if (grounded) {
+			// else {
 				GroundFunction.RunFunction (this);
-			}
+			//}
 		} else if (onWall && velocity.y < 0) {
 			WallFunction.RunFunction (this);
 		} 
