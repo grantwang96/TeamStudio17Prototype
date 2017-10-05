@@ -14,7 +14,7 @@ public class SimpleKillPlayer : MonoBehaviour { //goes on something with a hitbo
 
 	// Use this for initialization
 	void OnTriggerEnter2D(Collider2D other){
-		if (other.tag != this.tag && other.tag.Contains("Player")) {
+		if (other.tag != this.tag && other.gameObject.name.Contains("Player")) {
 			Destroy (other.gameObject);
 		}
 	}
