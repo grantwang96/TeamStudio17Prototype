@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TwoPlayerSpawn : MonoBehaviour {
 
@@ -25,6 +26,10 @@ public class TwoPlayerSpawn : MonoBehaviour {
         {
             spawnPlayers();
         }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 	}
 
     void spawnPlayers()
@@ -42,6 +47,7 @@ public class TwoPlayerSpawn : MonoBehaviour {
     }
 
     void modifyLoadout(int val, GameObject player) {
+        Debug.Log("Player value is: " + val);
         if(val > 0)
         {
             player.GetComponent<Player>().JumpFunction = jumps[Random.Range(0, jumps.Count)];

@@ -243,6 +243,16 @@ MonoBehaviour:
     type: 2}
   levelGen: {fileID: 2124642209}
   cameraControlScript: {fileID: 1917537862}
+  attacks:
+  - {fileID: 11400000, guid: 8ea0b4426edc09f418169bd1cec394cf, type: 2}
+  - {fileID: 11400000, guid: a38ab5344ff0f394392a3d133d29abfe, type: 2}
+  jumps:
+  - {fileID: 11400000, guid: 63002f002a9f1c0429deae807a078672, type: 2}
+  - {fileID: 11400000, guid: 9b5da73f14d9b97418a589eb9ae58cbd, type: 2}
+  rolls:
+  - {fileID: 11400000, guid: 748420a6a9878fe488e9d6996cf47eea, type: 2}
+  - {fileID: 11400000, guid: c85f89be228bffc4597f9d6a5f51e043, type: 2}
+  - {fileID: 11400000, guid: f75cf369bc5d55c43a81ea649d10f913, type: 2}
 --- !u!1 &1771441305
 GameObject:
   m_ObjectHideFlags: 0
