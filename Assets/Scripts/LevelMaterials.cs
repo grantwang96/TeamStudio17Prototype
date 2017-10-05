@@ -17,7 +17,7 @@ public class LevelMaterials : ScriptableObject {
     [Range(1,5)]
     public int unitSize;
 
-    [Range(0.4f, 0.95f)]
+    [Range(0.1f, 0.95f)]
     public float blockDensity;
     
     [Range(8, 30)]
