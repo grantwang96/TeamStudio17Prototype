@@ -15,5 +15,6 @@ MonoBehaviour:
   itemDescription: 
   itemValue: 0
   itemType: 0
-  rollDuration: 0
-  rollSpeed: 0
+  rollDuration: 0.1
+  rollSpeed: 30
+  inAirGravity: 0
