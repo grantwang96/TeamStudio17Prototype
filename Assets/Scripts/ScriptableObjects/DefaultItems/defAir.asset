@@ -17,5 +17,5 @@ MonoBehaviour:
   itemType: 0
   acceleration: 1
   drag: 0.001
-  gravity: 1
-  bonusAntiJumpGrav: 1.5
+  gravity: 1.2
+  bonusAntiJumpGrav: 1.3
