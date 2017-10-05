@@ -245,7 +245,7 @@ MonoBehaviour:
   cameraControlScript: {fileID: 1917537862}
   attacks:
   - {fileID: 11400000, guid: 8ea0b4426edc09f418169bd1cec394cf, type: 2}
-  - {fileID: 11400000, guid: a38ab5344ff0f394392a3d133d29abfe, type: 2}
+  - {fileID: 11400000, guid: 693705d74c3c43e459f0ccec5d0cf360, type: 2}
   jumps:
   - {fileID: 11400000, guid: 63002f002a9f1c0429deae807a078672, type: 2}
   - {fileID: 11400000, guid: 9b5da73f14d9b97418a589eb9ae58cbd, type: 2}
@@ -420,7 +420,7 @@ MonoBehaviour:
   main_camera: {fileID: 561922691}
   p1cam: {fileID: 0}
   p2cam: {fileID: 0}
-  distanceCheck: 10
+  distanceCheck: 7
 --- !u!4 &1917537863
 Transform:
   m_ObjectHideFlags: 0

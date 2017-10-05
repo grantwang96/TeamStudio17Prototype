@@ -36,8 +36,8 @@ public class TwoPlayerSpawn : MonoBehaviour {
     {
         Transform newPlayer1 = Instantiate(player1Prefab, levelGen.playerStartPos[0], Quaternion.identity);
         Transform newPlayer2 = Instantiate(player2Prefab, levelGen.playerStartPos[1], Quaternion.identity);
-        modifyLoadout(Random.Range(0, 3), newPlayer1.gameObject);
-        modifyLoadout(Random.Range(0, 3), newPlayer2.gameObject);
+        modifyLoadout(Random.Range(1, 4), newPlayer1.gameObject);
+        modifyLoadout(Random.Range(1, 4), newPlayer2.gameObject);
         cameraControlScript.gameObject.SetActive(true);
         cameraControlScript.p1 = newPlayer1.gameObject;
         cameraControlScript.p2 = newPlayer2.gameObject;
