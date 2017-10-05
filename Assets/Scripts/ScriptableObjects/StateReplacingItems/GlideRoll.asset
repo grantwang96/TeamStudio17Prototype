@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e2cf76077f003d4f8e2e77dedf266d3, type: 3}
   m_Name: GlideRoll
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: GlideDash
   itemDescription: 
   itemValue: 0
   itemType: 0

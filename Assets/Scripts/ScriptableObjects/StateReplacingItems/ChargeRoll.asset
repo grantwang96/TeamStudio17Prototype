@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066ce6283b47fee479403119c289c177, type: 3}
   m_Name: ChargeRoll
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: ChargeDash
   itemDescription: 
   itemValue: 0
   itemType: 0
