@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TwoPlayerSpawn : MonoBehaviour {
 
@@ -25,14 +26,18 @@ public class TwoPlayerSpawn : MonoBehaviour {
         {
             spawnPlayers();
         }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 	}
 
     void spawnPlayers()
     {
         Transform newPlayer1 = Instantiate(player1Prefab, levelGen.playerStartPos[0], Quaternion.identity);
         Transform newPlayer2 = Instantiate(player2Prefab, levelGen.playerStartPos[1], Quaternion.identity);
-        modifyLoadout(Random.Range(0, 3), newPlayer1.gameObject);
-        modifyLoadout(Random.Range(0, 3), newPlayer2.gameObject);
+        modifyLoadout(Random.Range(1, 4), newPlayer1.gameObject);
+        modifyLoadout(Random.Range(1, 4), newPlayer2.gameObject);
         cameraControlScript.gameObject.SetActive(true);
         cameraControlScript.p1 = newPlayer1.gameObject;
         cameraControlScript.p2 = newPlayer2.gameObject;
@@ -42,6 +47,7 @@ public class TwoPlayerSpawn : MonoBehaviour {
     }
 
     void modifyLoadout(int val, GameObject player) {
+        Debug.Log("Player value is: " + val);
         if(val > 0)
         {
             player.GetComponent<Player>().JumpFunction = jumps[Random.Range(0, jumps.Count)];
