@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Jetpack
   m_EditorClassIdentifier: Assembly-CSharp::JetpackAerialItem
-  itemName: 
+  itemName: Jetpack
   itemDescription: 
   itemValue: 0
   itemType: 0

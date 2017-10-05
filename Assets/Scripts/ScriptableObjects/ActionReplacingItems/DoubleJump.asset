@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4da6db215767c5d4d863489b49deceba, type: 3}
   m_Name: DoubleJump
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: DoubleJump
   itemDescription: 
   itemValue: 0
   itemType: 0

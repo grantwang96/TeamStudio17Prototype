@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d351cacde7d5cc4c9ddc58d6b91bc05, type: 3}
   m_Name: WingJump
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: WingedJump
   itemDescription: 
   itemValue: 0
   itemType: 0
