@@ -1214,11 +1214,11 @@ MonoBehaviour:
   RightWallCheck: {fileID: 637034455}
   LeftWallCheck: {fileID: 1965947405}
   GroundFunction: {fileID: 11400000, guid: bbb83535b73262149b61b71538cf416a, type: 2}
-  AirFunction: {fileID: 11400000, guid: bd870c748ce131e4b94c628a29a91822, type: 2}
+  AirFunction: {fileID: 11400000, guid: 387d5a9eab55d8f4fa2420e632ca5f79, type: 2}
   WallFunction: {fileID: 11400000, guid: ec96bdb2c1b39824eb5038737105f057, type: 2}
-  RollFunction: {fileID: 11400000, guid: d6869165d2af7fd41b75a110b244253a, type: 2}
+  RollFunction: {fileID: 11400000, guid: c85f89be228bffc4597f9d6a5f51e043, type: 2}
   AttackFunction: {fileID: 11400000, guid: a38ab5344ff0f394392a3d133d29abfe, type: 2}
-  JumpFunction: {fileID: 11400000, guid: 9b5da73f14d9b97418a589eb9ae58cbd, type: 2}
+  JumpFunction: {fileID: 11400000, guid: 024572c32c0330349855db9ab74f9689, type: 2}
   WallJumpFunction: {fileID: 11400000, guid: 36d5e84964abb5f4797a73282ea59865, type: 2}
   extraItems: []
   myCursor: {fileID: 1313611421}

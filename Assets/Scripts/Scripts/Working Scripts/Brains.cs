@@ -42,8 +42,10 @@ public class WASDKeyboardBrain : Brains {
 		else {
 			myPlayer.attackQueued = false;
 		}
-		if (Input.GetKeyDown(KeyCode.F)){
+		if (Input.GetKeyDown (KeyCode.F)) {
 			myPlayer.rollQueued = true;
+		} else if (Input.GetKeyUp(KeyCode.F)){
+			myPlayer.rollQueued = false;
 		}
 		//Vector3 tempV3 = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		//myPlayer.myCursor.position = new Vector3(tempV3.x, tempV3.y);
@@ -77,6 +79,9 @@ public class ARROWSKeyboardBrain : Brains {
 		}
 		if (Input.GetKeyDown(KeyCode.Period)){
 			myPlayer.rollQueued = true;
+		}
+		else if (Input.GetKeyUp(KeyCode.Period)){
+			myPlayer.rollQueued = false;
 		}
 		//Vector3 tempV3 = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		//myPlayer.myCursor.position = new Vector3(tempV3.x, tempV3.y);
