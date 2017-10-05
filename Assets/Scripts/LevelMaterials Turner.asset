@@ -23,7 +23,7 @@ MonoBehaviour:
     type: 2}
   dirs: []
   unitSize: 1
-  blockDensity: 0.6
+  blockDensity: 0.448
   mapHalfWidth: 18
   mapHalfHeight: 12
   cushioning: 0
