@@ -23,9 +23,9 @@ MonoBehaviour:
     type: 2}
   dirs: []
   unitSize: 1
-  blockDensity: 0.6
-  mapHalfWidth: 18
-  mapHalfHeight: 12
+  blockDensity: 0.1
+  mapHalfWidth: 30
+  mapHalfHeight: 30
   cushioning: 0
   roomCount: 4
   mapCenter: {x: 0, y: 0}
